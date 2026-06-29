@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>진짜_최종_최최종_PPT</title>
+    <style>
+        /* 끔찍한 무지개 배경 (보노보노 PPT의 핵심) */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background: linear-gradient(135deg, red, orange, yellow, green, blue, indigo, violet);
+            font-family: 'Gulim', '굴림', 'Comic Sans MS', sans-serif;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 슬라이드를 감싸는 끔찍한 테두리의 컨테이너 */
+        .presentation-frame {
+            width: 85%;
+            height: 80%;
+            background-color: rgba(255, 255, 255, 0.4);
+            border: 15px ridge #ff00ff;
+            position: relative;
+            box-shadow: 20px 20px 0px rgba(0,0,0,0.6);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 슬라이드 전환 로직을 위한 스타일 */
+        .slide {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+            animation: fadeIn 0.5s;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* 워드아트 스타일의 끔찍한 제목 */
+        h1 {
+            font-size: 3.5rem;
+            color: #00ff00;
+            text-shadow: 
+                -2px -2px 0 #000, 2px -2px 0 #000,
+                -2px  2px 0 #000, 2px  2px 0 #000,
+                5px 5px 15px red;
+            margin: 20px 0;
+            letter-spacing: -3px;
+        }
+
+        h2 {
+            color: #0000ff;
+            background-color: #ffff00;
+            display: inline-block;
+            padding: 10px;
+            font-style: italic;
+            text-decoration: underline;
+            font-size: 2rem;
+        }
+
+        h3 {
+            color: #ff0000;
+            text-shadow: 2px 2px #fff;
+            font-size: 2.5rem;
+            text-decoration: overline underline;
+        }
+
+        /* 눈을 피곤하게 만드는 상단 마퀴 대체 애니메이션 */
+        .marquee {
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            background: black;
+            color: white;
+            padding: 10px 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 20;
+        }
+        .marquee p {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marquee 12s linear infinite;
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        @keyframes marquee {
+            0%   { transform: translate(0, 0); }
+            100% { transform: translate(-100%, 0); }
+        }
+
+        /* 시선을 분산시키는 점멸 효과 */
+        .blink {
+            animation: blinker 0.5s linear infinite;
+            color: #ff00ff;
+            font-size: 3rem;
+            font-weight: 900;
+            background-color: #00ff00;
+            padding: 10px;
+            border-radius: 50%;
+        }
+        @keyframes blinker {
+            50% { opacity: 0; }
+        }
+
+        /* 조원 소개 테이블 */
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 80%;
+            background-color: #00ffff;
+        }
+        th, td {
+            border: 5px dashed #ff0000;
+            padding: 10px;
+            color: #8b008b;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        th { background-color: #000080; color: #00ff00; }
+
+        /* 복붙해온 나무위키 텍스트 스타일 */
+        .copypasta {
+            text-align: left;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #000080;
+            background: rgba(255,255,0,0.5);
+            padding: 20px;
+            border: 3px solid red;
+            width: 80%;
+            overflow-y: auto;
+            max-height: 60%;
+        }
+        .copypasta sup { color: red; font-weight: bold; }
+        
+        /* 알 수 없는 엉터리 차트 (총합이 100%가 넘음) */
+        .fake-chart {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: conic-gradient(red 0% 120%, blue 120% 180%, lime 180% 360%);
+            margin: 20px auto;
+            border: 10px solid yellow;
+            box-shadow: 5px 5px 15px black;
+        }
+        .chart-legend {
+            background: white;
+            padding: 10px;
+            border: 2px solid black;
+            text-align: left;
+            display: inline-block;
+        }
+
+        /* 맥락 없이 배치된 보노보노 */
+        .bonobono {
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            width: 400px;
+            height: 400px;
+            z-index: 10;
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        /* 끔찍한 네비게이션 버튼 */
+        .nav-controls {
+            margin-top: 15px;
+            display: flex;
+            gap: 20px;
+            z-index: 30;
+        }
+        .btn-nav {
+            background-color: #ff00ff;
+            color: #00ff00;
+            border: 5px outset #00ffff;
+            padding: 15px 30px;
+            font-size: 1.5rem;
+            font-family: 'Gulim';
+            font-weight: 900;
+            cursor: pointer;
+            text-shadow: 1px 1px 0 #000;
+        }
+        .btn-nav:hover {
+            background-color: #00ff00;
+            color: #ff00ff;
+        }
+        .slide-counter {
+            background: black;
+            color: white;
+            padding: 5px 10px;
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            font-family: 'Comic Sans MS';
+        }
+
+        /* 에러 메시지 팝업 (alert 대체) */
+        #error-msg {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: red;
+            color: yellow;
+            font-size: 2rem;
+            font-weight: bold;
+            padding: 20px;
+            border: 10px dotted black;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="presentation-frame">
+        
+        <!-- 항상 존재하는 상단 마퀴 태그 -->
+        <div class="marquee">
+            <p>★☆★☆ 경영학 원론 - 1조 발표 (폰트 깨짐 주의, 스피커 켜지 마세요) ★☆★☆</p>
+        </div>
+
+        <!-- 맥락 없는 보노보노 SVG -->
+        <svg class="bonobono" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="100" cy="100" r="80" fill="#74b9ff" stroke="black" stroke-width="2"/>
+            <ellipse cx="100" cy="120" rx="35" ry="25" fill="white" stroke="black" stroke-width="2"/>
+            <ellipse cx="100" cy="105" rx="12" ry="8" fill="black" />
+            <circle cx="65" cy="85" r="4" fill="black" />
+            <circle cx="135" cy="85" r="4" fill="black" />
+            <line x1="135" y1="120" x2="175" y2="115" stroke="black" stroke-width="2"/>
+            <line x1="135" y1="130" x2="175" y2="135" stroke="black" stroke-width="2"/>
+            <line x1="65" y1="120" x2="25" y2="115" stroke="black" stroke-width="2"/>
+            <line x1="65" y1="130" x2="25" y2="135" stroke="black" stroke-width="2"/>
+            <path d="M 150 40 Q 165 70 150 85 Q 135 70 150 40" fill="#0984e3" stroke="black" stroke-width="1"/>
+            <path d="M 165 55 Q 175 75 165 85 Q 155 75 165 55" fill="#0984e3" stroke="black" stroke-width="1"/>
+        </svg>
+
+        <div class="slide-counter" id="counter">1 / 5</div>
+        <div id="error-msg">질문 안 받는다니까요?!</div>
+
+        <!-- 슬라이드 1: 제목 -->
+        <div class="slide active">
+            <br><br>
+            <h1>[경영학 원론]</h1>
+            <h2>- 1조 조별과제 최종 발표 -</h2>
+            <table>
+                <tr><th>역할</th><th>이름</th><th>비고</th></tr>
+                <tr><td>자료조사, PPT, 발표</td><td>김철수</td><td>조장 (결국 밤새서 혼자 다 함)</td></tr>
+                <tr><td>자료조사 보조</td><td>이영희</td><td>나무위키 긁어옴 (하이퍼링크 안지움)</td></tr>
+                <tr><td>프린트 및 응원</td><td>박민수</td><td>카톡 안봄 (현재 PC방 추정)</td></tr>
+            </table>
+        </div>
+
+        <!-- 슬라이드 2: 목차 -->
+        <div class="slide">
+            <h3>- 목 차 -</h3>
+            <div style="font-size: 2rem; color: #fff; background: #8B4513; padding: 20px; border-radius: 10px; border: 5px solid lime; text-align: left;">
+                <p>1. 서 론</p>
+                <p style="margin-left: 50px; color: yellow;">1-1. 경영이란?</p>
+                <p>2. 본 론</p>
+                <p style="margin-left: 50px; color: cyan;">2-1. 최신 트랜드 분석</p>
+                <p>4. 결 론 <span style="font-size: 0.5rem; color: #000;">(3번은 어디갔지)</span></p>
+                <p>5. Q & A</p>
+            </div>
+        </div>
+
+        <!-- 슬라이드 3: 본문 (나무위키 복붙) -->
+        <div class="slide">
+            <h3>1. 경영의 정의 (서론)</h3>
+            <div class="copypasta">
+                경영(經營, management)은 특정한 목적을 달성하기 위해 자원을 할당하고 통제하는 과정이다.<sup>[1]</sup> 
+                기능내용은 인사관계 ·재무관계 ·생산관계 ·마케팅관계로 대별된다.<sup>[편집]</sup><br><br>
+                <span style="color: green; background: red; font-size: 1.5rem;">※ 주의: 이 문서는 토막글입니다.</span><br><br>
+                피터 드러커의 정의에 따르면, 경영은 조직의 고유한... <i>(이하 생략, 사실 다 안 읽어봄)</i><sup>[출처 필요]</sup>
+            </div>
+        </div>
+
+        <!-- 슬라이드 4: 엉터리 통계 자료 -->
+        <div class="slide">
+            <h3>2. 설문 조사 결과 (통계 자료)</h3>
+            <div class="fake-chart"></div>
+            <div class="chart-legend">
+                <p><span style="color: red;">■</span> 긍정적 (120%)</p>
+                <p><span style="color: blue;">■</span> 부정적 (-30%)</p>
+                <p><span style="color: lime;">■</span> 모르겠다 (50%)</p>
+                <p><b>* 총합: 140% (오차범위 무시)</b></p>
+            </div>
+        </div>
+
+        <!-- 슬라이드 5: 마무리 -->
+        <div class="slide">
+            <h1 style="font-size: 5rem; margin-bottom: 50px;">Q & A</h1>
+            <div class="blink">질문은 받지 않겠습니다!</div>
+            <h2 style="margin-top: 50px; background: none; color: white; text-decoration: none;">- 감 사 합 니 다 -</h2>
+            <p style="color: yellow; font-weight: bold;">(빨리 끝내고 밥 먹으러 가요)</p>
+        </div>
+
+    </div>
+
+    <div class="nav-controls">
+        <button class="btn-nav" onclick="prevSlide()">◀ 이 전</button>
+        <button class="btn-nav" onclick="nextSlide()">다 음 ▶</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const counter = document.getElementById('counter');
+        const errorMsg = document.getElementById('error-msg');
+
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                }
+            });
+            counter.innerText = (currentSlide + 1) + " / " + slides.length;
+            errorMsg.style.display = 'none';
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                updateSlide();
+            } else {
+                // 마지막 슬라이드에서 다음을 누를 때의 소소한 장난
+                errorMsg.style.display = 'block';
+                setTimeout(() => {
+                    errorMsg.style.display = 'none';
+                }, 1500);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+    </script>
+</body>
+</html>
